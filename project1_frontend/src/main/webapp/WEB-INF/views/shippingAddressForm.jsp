@@ -48,5 +48,6 @@ Enter Shipping Address
 
 <input type="submit" value="Next">
 </form:form>
+<%@include file="footer.jsp" %>
 </body>
 </html>

@@ -8,48 +8,37 @@
 <title>Login</title>
 </head>
 <body>
-<c:url value="/j_spring_security_check" var="loginUrl"></c:url>
+
+
 
 </head>
 <body>
-<div class="container">    
-        <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
-            <div class="panel panel-info" >
-                    <div class="panel-heading">
-                        <div class="panel-title">Sign In</div>
-                        <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div>
-                    </div>     
+<div class="container mt-5 pt-3">
+<section id="registerform" class="pb-5">
+<c:url value="/j_spring_security_check" var="loginUrl"></c:url>
+<form action="${loginUrl }" method="POST">
+<div class="card border-primary mt-5 hoverable mx-auto" style="padding:10px 50px 10px 50px; max-width:500px;">
+<h3 class="card-title" align="center"><strong>Login</strong></h3>
+    <div class="md-form">
+        <i class="fa fa-user prefix grey-text"></i>
+        <input type="text" name="j_username" class="form-control" required autofocus>
+        <label for="orangeForm-name">Username</label>
+    </div>
 
-                    <div style="padding-top:30px" class="panel-body" >
+    <div class="md-form">
+        <i class="fa fa-lock prefix grey-text"></i>
+        <input type="password" name="j_password" class="form-control" required>
+        <label for="orangeForm-pass">Password</label>
+    </div>
+    
+        <div class="text-center">
+       <button type="submit" class="btn btn-primary btn-rounded">Login</button>
+    </div>
+</div>
+</form>
 
-                        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
-                            
-                        <form id="loginform" class="form-horizontal" role="form" action="${loginUrl }" method="post">
-                                    <h3>${error }</h3>
-                            <div style="margin-bottom: 25px" class="input-group">
-                                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                        <input id="login-username" type="text" class="form-control" name="j_username" value="" placeholder="Username" required>                                        
-                                    </div>
-                                
-                            <div style="margin-bottom: 25px" class="input-group">
-                                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                        <input id="login-password" type="password" class="form-control" name="j_password" placeholder="Password" required>
-                                    </div>
-                                    
-
-
-
-                                <div style="margin-top:10px" class="form-group">
-                                    <!-- Button -->
-
-                                    <div class="col-sm-12 controls">
-                                      <button id="btn-login" href="#" class="btn btn-success">Login  </button>
-
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group">
+</section>
+                                <div class="md-form">
                                     <div class="col-md-12 control">
                                         <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
                                             Don't have an account! 
@@ -58,16 +47,11 @@
                                         </a>
                                         </div>
                                     </div>
-                                </div>    
-                            </form>     
+                                </div> 
+</div>
 
-
-
-                        </div>                     
-                    </div>  
-        </div>
-
-    </div>
-    
+<%@include file="footer.jsp" %>
 </body>
 </html>
+
+ 

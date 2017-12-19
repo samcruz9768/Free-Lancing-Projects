@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.niit.model.Cart;
 import com.niit.model.CartItem;
+import com.niit.model.Category;
 import com.niit.model.Customer;
 import com.niit.model.CustomerOrder;
 import com.niit.model.Product;
@@ -37,8 +38,13 @@ public class CartItemController {
 	org.springframework.security.core.userdetails.User user;
 	
 	@RequestMapping(value="/cart/addtocart/{id}")
-public String addToCart(@AuthenticationPrincipal Principal principal,@PathVariable int id,@RequestParam int quantity){
+public String addToCart(@AuthenticationPrincipal Principal principal,@PathVariable int id,@RequestParam int quantity,Model model){
 	Product product=productService.getProduct(id);
+	if(quantity > product.getQuantity() || quantity == 0) {
+		model.addAttribute("message","Please Input a Valid Quantity");
+		model.addAttribute("product",product);
+		return "viewproduct";
+	}
 	String username=principal.getName();
 	User user=customerService.getUser(username);
 	Customer customer=user.getCustomer();
@@ -71,6 +77,8 @@ public String addToCart(@AuthenticationPrincipal Principal principal,@PathVariab
 		Cart cart=customer.getCart();
 		model.addAttribute("cart",cart);
 		model.addAttribute("title","Cart");
+		List<Category> categories = productService.getAllCategories();
+		model.addAttribute("categories",categories);
 		return "cart";
 	}
 	
@@ -96,6 +104,7 @@ public String addToCart(@AuthenticationPrincipal Principal principal,@PathVariab
 	@RequestMapping(value="/cart/checkout/{cartId}")
 	public String checkout(@PathVariable int cartId,Model model){
 		Cart cart=cartItemService.getCart(cartId);
+		List<CartItem> cartItems = cart.getCartItems();
 		Customer customer=cart.getCustomer();
 		ShippingAddress shippingAddress=customer.getShippingaddress();
 		model.addAttribute("shippingaddress",shippingAddress);
@@ -131,8 +140,14 @@ public String addToCart(@AuthenticationPrincipal Principal principal,@PathVariab
 	@RequestMapping(value="/cart/confirm/{cartId}")
 	public String confirm(@PathVariable int cartId){
 		Cart cart=cartItemService.getCart(cartId);
+
 		List<CartItem> cartItems=cart.getCartItems();
+
 		for(CartItem cartItem : cartItems){//for(T v:collection)
+			Product product = cartItem.getProduct();
+			product.setQuantity(cartItem.getProduct().getQuantity() - cartItem.getQuantity());
+		
+			productService.saveOrUpdateProduct(product);
 			cartItemService.removeCartItem(cartItem.getId());//delete from cartitem where id=3
 		}
 		return "thanks";

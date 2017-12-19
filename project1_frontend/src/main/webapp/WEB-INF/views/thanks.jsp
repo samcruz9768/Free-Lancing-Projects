@@ -10,5 +10,6 @@
 <body>
 <h2>Thank You!! Visit Again</h2>
 <a href='<c:url value="/home"></c:url>'>Click Here to go back to website</a>
+<%@include file="footer.jsp" %>
 </body>
 </html>

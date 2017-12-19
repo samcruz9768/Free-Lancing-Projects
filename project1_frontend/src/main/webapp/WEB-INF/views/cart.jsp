@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ include file="header.jsp" %>
+<%@ include file="header.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,17 +8,19 @@
 <title>E-Commerce ${title }</title>
 </head>
 <body>
+<div class="container" style="padding-top:100px;">
 <div >
-<div >
-
+<c:if test="${not empty cart.cartItems }">
 <a href="<c:url value='/cart/clearcart/${cart.id}'></c:url>" class="btn btn-danger" pull-left  >
-<span class="glyphicon glypicon-remove-sign"></span>
+<i class="fa fa-remove" aria-hidden="true"></i>
 Clear Cart
 </a>
-
+</c:if>
+<c:if test="${not empty cart.cartItems }">
 <a href="<c:url value='/cart/checkout/${cart.id }'></c:url>" class="btn btn-success pull-right">
-<span class="glyphicon glypicon-shopping-cart"></span> Check Out  </a>
-<table class="table table-striped">
+<i class="fa fa-shopping-basket" aria-hidden="true"></i> Check Out  </a>
+</c:if>
+<table class="table table-hover">
 <thead>
 <tr><th>Name</th><th>Quantity</th><th>Total Price</th><th>Remove</th>
 </tr>
@@ -46,5 +48,6 @@ Total Price : ${grandTotal }
 </div>
 
 </div>
+<%@include file="footer.jsp" %>
 </body>
 </html>
