@@ -13,6 +13,7 @@ import com.niit.model.Cart;
 import com.niit.model.CartItem;
 import com.niit.model.Customer;
 import com.niit.model.CustomerOrder;
+import com.niit.model.OrderPlaced;
 
 @Repository
 @Transactional
@@ -58,6 +59,15 @@ private SessionFactory sessionFactory;
 		//update cart set grandtotal where id=?
 		//update shippingaddress set ..... where id=?
 		return customerOrder;
+	}
+	
+	public void removeOrder(Cart cart) {
+	    Session session=sessionFactory.getCurrentSession();
+	    //select * from cartitem where id=?
+	    OrderPlaced orderplaced = (OrderPlaced)session.get(OrderPlaced.class,cart);
+	    //delete from cartitem where id=?
+	    session.delete(orderplaced);
+		
 	}
 
 }

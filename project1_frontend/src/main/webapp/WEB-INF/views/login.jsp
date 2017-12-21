@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Login</title>
+<title>Shop+ : ${title }</title>
 </head>
 <body>
 
@@ -13,7 +13,12 @@
 
 </head>
 <body>
-<div class="container mt-5 pt-3">
+<div class="container" style="padding-top:120px;">
+<c:if test="${not empty error }">
+<div class="alert alert-danger" role="alert">
+  <p class="text-center">${error }</p>
+</div>
+</c:if>
 <section id="registerform" class="pb-5">
 <c:url value="/j_spring_security_check" var="loginUrl"></c:url>
 <form action="${loginUrl }" method="POST">
@@ -30,7 +35,7 @@
         <input type="password" name="j_password" class="form-control" required>
         <label for="orangeForm-pass">Password</label>
     </div>
-    
+    	
         <div class="text-center">
        <button type="submit" class="btn btn-primary btn-rounded">Login</button>
     </div>

@@ -109,6 +109,8 @@ public String addToCart(@AuthenticationPrincipal Principal principal,@PathVariab
 		ShippingAddress shippingAddress=customer.getShippingaddress();
 		model.addAttribute("shippingaddress",shippingAddress);
 		model.addAttribute("cartId",cartId);
+		List<Category> categoriesList=productService.getAllCategories();
+		model.addAttribute("categories",categoriesList);
 		return "shippingAddressForm";
 	}
 	
@@ -133,16 +135,18 @@ public String addToCart(@AuthenticationPrincipal Principal principal,@PathVariab
 		CustomerOrder customerOrder=cartItemService.createOrder(cart);//insert into customerorder
 		model.addAttribute("order",customerOrder);
 		model.addAttribute("cartId",cartId);
+		List<Category> categoriesList=productService.getAllCategories();
+		model.addAttribute("categories",categoriesList);
+		model.addAttribute("title","Purchase Order");
 		return "orderdetails";
 	}
 	
 	
 	@RequestMapping(value="/cart/confirm/{cartId}")
-	public String confirm(@PathVariable int cartId){
+	public String confirm(@PathVariable int cartId,Model model){
 		Cart cart=cartItemService.getCart(cartId);
-
+		
 		List<CartItem> cartItems=cart.getCartItems();
-
 		for(CartItem cartItem : cartItems){//for(T v:collection)
 			Product product = cartItem.getProduct();
 			product.setQuantity(cartItem.getProduct().getQuantity() - cartItem.getQuantity());
@@ -150,6 +154,9 @@ public String addToCart(@AuthenticationPrincipal Principal principal,@PathVariab
 			productService.saveOrUpdateProduct(product);
 			cartItemService.removeCartItem(cartItem.getId());//delete from cartitem where id=3
 		}
+		List<Category> categoriesList=productService.getAllCategories();
+		model.addAttribute("categories",categoriesList);
+		model.addAttribute("title","Thankyou For Shopping");
 		return "thanks";
 	}
 }

@@ -5,21 +5,24 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>E-Commerce ${title }</title>
+<title>Shop+ : ${title }</title>
 </head>
 <body>
-<div class="container" style="padding-top:100px;">
+<div class="container" style="padding-top: 150px;">
+<a onclick="goBack()"><i class="fa fa-arrow-circle-left fa-2x info-text" aria-hidden="true"></i></a>
+</div>
+<div class="container">
 <div >
 <c:if test="${not empty cart.cartItems }">
-<a href="<c:url value='/cart/clearcart/${cart.id}'></c:url>" class="btn btn-danger" pull-left  >
+<a href="<c:url value='/cart/clearcart/${cart.id}'></c:url>" class="btn btn-danger pull-right">
 <i class="fa fa-remove" aria-hidden="true"></i>
 Clear Cart
 </a>
-</c:if>
-<c:if test="${not empty cart.cartItems }">
+
+
 <a href="<c:url value='/cart/checkout/${cart.id }'></c:url>" class="btn btn-success pull-right">
 <i class="fa fa-shopping-basket" aria-hidden="true"></i> Check Out  </a>
-</c:if>
+
 <table class="table table-hover">
 <thead>
 <tr><th>Name</th><th>Quantity</th><th>Total Price</th><th>Remove</th>
@@ -33,9 +36,9 @@ Clear Cart
 <td>${cartItem.quantity }</td>
 <td>${cartItem.totalPrice }</td>
 
-<td><a href="<c:url value='/cart/deletecartitem/${cartItem.id }'></c:url>" class="label label-danger" pull-left>
+<td><a href="<c:url value='/cart/deletecartitem/${cartItem.id }'></c:url>" class="label label-danger">
 
-<span class="glyphicon glypicon-remove" ></span>Remove
+<i class="fa fa-remove red-text" aria-hidden="true"></i>
 </a></td>
 <td></td>
 <!--  grandTotal = cartItem.totalPrice + grandTotal -->
@@ -45,9 +48,18 @@ Clear Cart
 </c:forEach>
 </table>
 Total Price : ${grandTotal }
+</c:if>
 </div>
+<c:if test="${empty cart.cartItems }">
+<div class="text-center">
+<h4><strong>Your Cart Is Empty!</strong></h4>
+
+<a class="btn btn-primary btn-rounded" role="button" href='<c:url value="/all/getallproducts"></c:url>'><i class="fa fa-cart-plus" aria-hidden="true"></i>&nbsp;Click To Shop More</a>
 
 </div>
+</c:if>
+</div>
 <%@include file="footer.jsp" %>
+
 </body>
 </html>

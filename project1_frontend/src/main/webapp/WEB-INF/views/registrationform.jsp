@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>E-Commerce ${title }</title>
+<title>Shop+ : ${title }</title>
 </head>
 <body>
 <div class="container mt-5 pt-3">
