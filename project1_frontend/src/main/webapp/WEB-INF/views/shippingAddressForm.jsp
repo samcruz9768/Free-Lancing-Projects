@@ -51,7 +51,7 @@
 </div>
 
 <div class="text-center">
-<button type="submit" class="btn btn-primary btn-rounded">Next</button>
+<button type="submit" class="btn btn-primary btn-rounded">Place Order</button>
 </div>
 </form:form>
 </div>
